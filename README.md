@@ -81,32 +81,14 @@ Calling new_game(game_board) returns the dictionary:<br /><br />
     new_rep["features"] = features
 
     return new_rep
-    <br />
+<br />
+
+
 
 <p align="left">
-Create a VICTORY check: <br />
-This function return a Boolean value; True if the given game satisfies the victory condition, False otherwise. It is important to not that a game with no computers or targets or fewer computers than targets never satisfies the victory condition.
+Player makes a MOVE: <br />
+This function returns a new game updated according to one step of the game after the player has made their move (without modifying the object that was passed in). The possible actions that a player can take are "up", "down", "right", and "left". This function does not mutate its input.<br />
 
-
-    computer_coord_lst = sorted(game["objects"]["computer"])
-    target_coord_lst = sorted(game["objects"]["target"])
-
-    if computer_coord_lst != []:
-        return computer_coord_lst == target_coord_lst
-    else:
-        return False
-
-
-def step_game(game, direction):
-    """
-    Given a game representation (of the form returned from new_game),
-    return a new game representation (of that same form), representing the updated game
-    after running one step of the game.  The user's input is given by
-    direction, which is one of the following: {'up', 'down', 'left', 'right'}.
-
-    This function should not mutate its input.
-    """
-    #copy of game
     next_game = {}
 
     objects = {}
@@ -166,18 +148,26 @@ def step_game(game, direction):
 
         return next_game
 
+<br />
+<p align="left">
+Create a VICTORY check: <br />
+This function return a Boolean value; True if the given game satisfies the victory condition, False otherwise. It is important to not that a game with no computers or targets or fewer computers than targets never satisfies the victory condition.
 
-def dump_game(game):
-    """
-    Given a game representation (of the form returned from new_game), convert
-    it back into a level description that would be a suitable input to new_game
-    (a list of lists of lists of strings).
 
-    This function is used by the GUI and the tests to see what your game
-    implementation has done, and it can also serve as a rudimentary way to
-    print out the current state of your game for testing and debugging on your
-    own.
-    """
+    computer_coord_lst = sorted(game["objects"]["computer"])
+    target_coord_lst = sorted(game["objects"]["target"])
+
+    if computer_coord_lst != []:
+        return computer_coord_lst == target_coord_lst
+    else:
+        return False
+    
+<br />
+DEBUGGING tool:<br />
+This function is used by the GUI and the tests to see what the game implementation has done. It can also serve as a rudimentary way to
+print out the current state of the game for testing and debugging.<br />
+
+It converts the given game representation back into a level description suitable as an input to the function 'new_game' (a list of lists of lists of strings).<br />
 
     original = []
 
@@ -193,42 +183,23 @@ def dump_game(game):
         original.append(new_lst)
     return original
 
+<br />
+Create some HELPFUL functions:<br />
+1. A function that returns the player and computer positions in a given game.<br />
 
-def get_player_computer(game):
-    """
-    Given a game rep, return player and computer positions
-    """
-    return (game["objects"]["player"], game["objects"]["computer"]) 
-#tup to match visited below
+    return (game["objects"]["player"], game["objects"]["computer"])
+<br />
+2. A function that returns a game given the player and computer positions. <br />
 
-
-def get_game(game, player, computer):
-    """
-    Given the player and computer position,
-    returns a game
-    """
     game["objects"]["player"] = player
     game["objects"]["computer"] = computer
 
     return game
+<br />
 
-
-def solve_puzzle(game):
-    """
-    Given a game representation (of the form returned from new game), find a
-    solution.
-
-    Return shortest list of strings representing the shortest sequence of moves ("up",
-    "down", "left", and "right") needed to reach the victory condition.
-
-    If the given level cannot be solved, return None.
-    """
-    #     direction_vector = {
-    #     "up": (-1, 0),
-    #     "down": (+1, 0),
-    #     "left": (0, -1),
-    #     "right": (0, +1),
-    # }
+<br />
+SOLVE the puzzle:<br />
+The aim of the game is to find a solution for a given game. This function returns the shortest list of strings representing the shortest sequence of moves ("up", "down", "left", and "right") needed to reach the victory condition. If the given game level cannot be solved, it returns None.<br /><br />
 
     agenda = [
         ((game["objects"]["player"], game["objects"]["computer"]), [])

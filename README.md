@@ -22,7 +22,7 @@ direction_vector = {
 <br />
 <p align="left">
 Create a game REPRESENTATION: <br />
-This function takes in the canonical representation of the game and returns an internal representation of the game state. I chose to represent the game state as a dictionary with 2 keys: 'objects' with value which is also a dictionary of objects as keys and list of the object's positions as values, and 'features' with value which is a dictionary with row num and col num as keys, and height and width of the board as values. <br />
+This function takes in the canonical representation of the game and returns an internal representation of the game state. I chose to represent the game state as a dictionary with 2 keys: 'objects' with value which is also a dictionary of objects as keys and list of the object's positions as values, and 'features' with value which is a dictionary with row num and col num as keys, and height and width of the board as values. <br /> 
 
 For example, given the game level description:<br /><br />
 game_board = <br />
